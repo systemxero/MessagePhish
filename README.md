@@ -1,6 +1,6 @@
-# MessagePhish [![Build Status](https://secure.travis-ci.org/scott/MessagePhish.png?branch=master)](http://travis-ci.org/scott/MessagePhish)
+# MessagePhish [![Build Status](https://travis-ci.org/systemxero/MessagePhish.svg?branch=master)](https://travis-ci.org/systemxero/MessagePhish)
 
-Message Transfer Agent
+## Message Transfer Agent
 
 ## Getting Started
 Install the module with: `npm install MessagePhish`

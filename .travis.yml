@@ -9,6 +9,6 @@ deploy:
   provider: heroku
   api_key:
     secure: FKpyJbDODwMdxASsiCJS/22+hGoy6PfRvfJfrrAdjxh/BblU2gUMQqlGVqLJZ9sGcPEnlsUsmq8G4bGsXr3sB8Em+FqWD1pppAbFKX4v4+VQ6j2MamLr4lVXm8s6qifEHpM69cB7aL9RgrDjmKgzH94L2fhYTYoqKNMUFyGKbo8=
-  app: MessagePhish
+  app: messagephish
   on:
     repo: systemxero/MessagePhish

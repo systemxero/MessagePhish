@@ -1,5 +1,14 @@
 language: node_js
 node_js:
-  - '0.10'
+- '0.10'
 before_script:
-  - npm install -g grunt-cli
+- npm install -g grunt-cli
+services:
+- mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: FKpyJbDODwMdxASsiCJS/22+hGoy6PfRvfJfrrAdjxh/BblU2gUMQqlGVqLJZ9sGcPEnlsUsmq8G4bGsXr3sB8Em+FqWD1pppAbFKX4v4+VQ6j2MamLr4lVXm8s6qifEHpM69cB7aL9RgrDjmKgzH94L2fhYTYoqKNMUFyGKbo8=
+  app: MessagePhish
+  on:
+    repo: systemxero/MessagePhish

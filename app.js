@@ -3,33 +3,53 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , http = require('http')
-  , path = require('path');
+var express        = require('express');
+var bodyParser     = require('body-parser');
+var methodOverride = require('method-override');
+var morgan         = require('morgan');
+var favicon        = require('serve-favicon');
+var errorhandler   = require('errorhandler');
+var colors         = require('colors');
+var handlebars     = require('express3-handlebars').create({defaultLayout:'main'});
+var routes         = require('./routes');
 
-var app = express();
+var about          = routes.about;
+var user           = routes.user;
 
-app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
-  app.use(express.favicon());
-  app.use(express.logger('dev'));
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
-  app.use(express.static(path.join(__dirname, 'public')));
-});
+app = express();
 
-app.configure('development', function(){
-  app.use(express.errorHandler());
-});
+app.use(express.static(__dirname, '/public'));
+app.use(morgan('dev'));
+app.use(bodyParser());
+app.use(methodOverride());
+console.log('hi'.rainbow);
+app.set('port', process.env.PORT || 9000);
+app.engine('handlebars',handlebars.engine);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'handlebars');
+app.use(favicon(__dirname+'/app/favicon.ico'));
 
-app.get('/', routes.index);
-app.get('/users', user.list);
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
-});
+if ( process.env.NODE_ENV === 'development' ) {
+  app.use(errorhandler());
+}
+
+var ndxRouter = express.Router();
+ndxRouter.get('/', routes.index);
+ndxRouter.get('/about', routes.about);
+ndxRouter.get('/users', routes.user);
+app.use('/',ndxRouter);
+
+// handle the 404
+app.use(function(req, res, next) {
+  res.type('text/html');
+  res.status(404)
+  res.send('/app/404.html');
+
+})
+
+//app.get('/', routes.index);
+//app.get('/users', user.list);
+
+app.listen(app.get('port'));
+console.log("Express server listening on port ".blue + app.get('port'));
